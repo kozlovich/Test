@@ -1,0 +1,44 @@
+<div style="text-align:left">
+  <h1 class="mat-display-2">
+    {{title}}
+  </h1>
+</div>
+
+<div class="todos">
+  <div>
+    <form (submit)="addTodo($event)" class="example-form">
+      <mat-form-field>
+        <input matInput placeholder="Add new todo" [(ngModel)]="newTodo" (keyup.enter)="newTodo=''" name="newTodo" class="example-full-width">
+      </mat-form-field>
+      <mat-form-field float="always">
+        <input matInput [matDatepicker]="picker1" placeholder="Select date" [(ngModel)]="date" name="date">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+      <button mat-button class="button" type="submit" [disabled]="newTodo===''">Add Todo</button>
+    </form>
+  </div>
+
+  <form>
+  <mat-selection-list #todoes class="example-form">
+    <mat-list-option #todoOne *ngFor="let todo of todos; index as i" (click)="selectTodos(todoOne.selected, i)">
+      <table>
+        <tr>
+          <td width="65%">{{todo.newTodo}}</td>
+          <td></td>
+          <td>{{todo.dueDate}}</td>
+        </tr>
+      </table>
+    </mat-list-option>
+  </mat-selection-list>
+</form>
+
+  <p class="mat-body-2" style="color:mat-accent">
+    Options selected: {{todoes.selectedOptions.selected.length}}
+  </p>
+
+  <form (submit)="deleteSelectedTodos()">
+    <button mat-button class="button" type="submit" [disabled]="todoes.selectedOptions.selected.length === 0">Delete Selected</button>
+  </form>
+
+</div>
